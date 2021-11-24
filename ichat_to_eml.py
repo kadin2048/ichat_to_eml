@@ -348,9 +348,9 @@ def eml_from_conv(conv, infilename):
 
     # Build a References header using a hash of the participants
     #  This will allow MTA to group all conversations with the same person in a thread
-    #  Note that participants are sorted() so conversations will be grouped regardless of initiator
+    #  Note that participants are sorted() and lower()ed so conversations will be grouped regardless of initiator
     eml['References'] = ('<' + hashlib.md5(
-        ' '.join(sorted(conv['participants'])).encode('utf-8')).hexdigest() + '@' + fakedomain + '>')
+        ' '.join(sorted(conv['participants'])).lower().encode('utf-8')).hexdigest() + '@' + fakedomain + '>')
 
     # Create unique Message-ID by hashing the content (allows for duplicate detection)
     eml['Message-ID'] = ('<' + hashlib.md5(
